@@ -6,5 +6,7 @@ Rails.application.routes.draw do
     resources :categories, only: [:index]
     resources :products
     resources :users
+    resources :orders
+    resources :order_products
   end
 end

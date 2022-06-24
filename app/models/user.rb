@@ -1,8 +1,12 @@
 class User < ApplicationRecord
-  has_secure_password
+  before_save :email_downcase
+
+  has_many :orders
 
   validates_presence_of :email
   validates_uniqueness_of :email
+
+  has_secure_password
 
   private
   def email_downcase
