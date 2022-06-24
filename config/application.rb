@@ -38,5 +38,6 @@ module TestApp
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+    config.session_store :cookies, expire_after: 14.days
   end
 end

@@ -2,7 +2,9 @@
 
 Rails.application.routes.draw do
   scope '/api' do
-    get 'categories/index'
+    resources :sessions, only: [:create]
+    resources :categories, only: [:index]
     resources :products
+    resources :users
   end
 end

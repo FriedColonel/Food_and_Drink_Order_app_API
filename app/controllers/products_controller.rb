@@ -2,6 +2,7 @@
 
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :update, :destroy]
+
   def index
     if params[:category].blank?
       @products = Product.all.order('created_at DESC')
