@@ -1,8 +1,8 @@
 class OrderProductsController < ApplicationController
-  before_action :order_product_params, only: [:show, :destroy, :update]
+  before_action :set_order_product, only: [:show, :destroy, :update]
 
   def index
-    @order_products = Oder_product.all
+    @order_products = OrderProduct.all
     render json: @order_products
   end
 
@@ -11,9 +11,9 @@ class OrderProductsController < ApplicationController
   end
 
   def create
-    @order_product = Oder_product.new(order_product_params)
+    @order_product = OrderProduct.new(order_product_params)
     if @order_product.save
-      render json: @order_product
+      render json: @order_product, status: :created, location: @order_product
     else
       render json: @order_product.errors, status: :unprocessable_entity
     end
@@ -33,10 +33,10 @@ class OrderProductsController < ApplicationController
 
   private
   def set_order_product
-    @order_product = Oder_product.find_by id: params[:id]
+    @order_product = OrderProduct.find_by id: params[:id]
   end
 
   def order_product_params
-    params.require(:order_product).permit(:order_id, :product_id)
+    params.require(:order_product).permit(:order_id, :product_id, :quantity)
   end
 end

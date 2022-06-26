@@ -6,8 +6,21 @@ class OrdersController < ApplicationController
     render json: @orders
   end
 
+  # GET api/orders/:id
   def show
-    render json: @order
+    lines = @order.order_products.all
+    @lines = []
+    lines.each do |line|
+      @lines << line.as_json.to_hash
+      product = line.product
+      @lines.last[:product_name] = product.name
+      @lines.last[:product_image] = product.image
+      @lines.last[:product_price] = product.price
+    end
+    render json: {
+      order: @order,
+      line: @lines
+    }
   end
 
   def create
@@ -31,9 +44,16 @@ class OrdersController < ApplicationController
     @order.destroy
   end
 
+  def pending_orders
+    @orders = Order.where(status: false).order('updated_at DESC')
+    render json: @orders
+  end
+
   private
   def set_order
     @order = Order.find_by id: params[:id]
+    return if @order
+    render json: {error: "Not found"}
   end
 
   def order_params

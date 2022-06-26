@@ -8,8 +8,10 @@ class CreateProducts < ActiveRecord::Migration[6.1]
       t.string :image
       t.integer :price
       t.float :rating, default: 0.0
-      t.integer :category_id
-      t.integer :store_id
+      t.references :store, null: false, foreign_key: {on_delete: :cascade}
+      t.references :category, null: false, foreign_key: true
+      # t.index :category_id
+      # t.index [:category_id, :store_id]
 
       t.timestamps
     end

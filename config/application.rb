@@ -39,5 +39,11 @@ module TestApp
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
     config.session_store :cookies, expire_after: 14.days
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*'
+        resource '*', headers: :any, methods: [:get, :post, :delete, :put, :options]
+      end
+    end
   end
 end

@@ -6,10 +6,12 @@ class CreateUsers < ActiveRecord::Migration[6.1]
       t.string :username, null: false
       t.string :password_digest
       t.string :address
-      t.string :role, enum: {admin: 'manager', user: 'customer'}, default: 'customer'
-      t.string :email, unique: true
+      # t.string :role, enum: {admin: 'manager', user: 'customer'}, default: 'customer'
+      t.boolean :admin, default: 'false'
+      t.string :email
       t.string :phone_number, unique: true
-      t.string :image
+      t.string :image, default: 'https://i.stack.imgur.com/l60Hf.png'
+      # t.index [:id, :email]
 
       t.timestamps
     end
