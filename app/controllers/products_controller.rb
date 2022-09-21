@@ -21,7 +21,7 @@ class ProductsController < ApplicationController
     # sql = "SELECT * FROM products WHERE id = #{params[:id]} LIMIT 1"
     # product = ActiveRecord::Base.connection.execute(sql)
     # @product = Product.find_by id: params[:id]
-    @ratings = @product.ratings.all
+    @ratings = @product.ratings.includes(:user)
     ratings = []
     @ratings.each do |rating|
       ratings << rating.as_json.to_hash

@@ -8,7 +8,8 @@ class OrdersController < ApplicationController
 
   # GET api/orders/:id
   def show
-    lines = @order.order_products.all
+    # @lines = @order.order_products.includes(:product)
+    lines = @order.order_products.includes(:product)
     @lines = []
     lines.each do |line|
       @lines << line.as_json.to_hash
@@ -19,7 +20,7 @@ class OrdersController < ApplicationController
     end
     render json: {
       order: @order,
-      line: @lines
+      line: @lines,
     }
   end
 
